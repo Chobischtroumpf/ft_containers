@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 10:48:54 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/20 14:07:26 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/03/01 13:42:28 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,13 @@
 
 #include <iostream>
 #include <exception>
-#include <string>
+#include <cstddef>
 
 namespace ft
 {
 	template <typename T, class Allocator = std::allocator<T> >
 	class List
 	{
-		class Node
-		{
-			public:
-			T						_data;
-			Node					*_next;
-			Node					*_prev;
-		};
-
 		typedef typename Allocator::template rebind<Node>::other _node_alloc_type;
 
 		public:
