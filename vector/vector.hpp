@@ -112,7 +112,7 @@ public:
 namespace ft
 {
 	template <class T, class Allocator = std::allocator<T> >
-	class vector
+	class Vector
 	{
 	public:
 		typedef T value_type;
@@ -128,8 +128,40 @@ namespace ft
 		typedef typename allocator_type::size_type size_type;
 		typedef typename allocator_type::difference_type difference_type;
     
-		vector(){};
 	private:
+		T   			_vector;
+		pointer			_ptr;
+		allocator_type	_base;
+		size_type		_size;
+		size_type		_capacity;
+	public:
+		explicit		Vector(const Allocator& alloc) : _base(alloc), _ptr(NULL), size(0), _capacity(0)
+		{
+			this->_ptr = this->_base.allocate(0);
+		};
+
+		explicit		Vector(size_type count, const T& value = T(), const Allocator& alloc = Allocator())
+		{
+			this->_ptr = this->_base.allocate(count);
+			for (size_t i = 0; i < count; i++)
+				this->_base.construct(this->_ptr + i, value);
+		};
+
+		template<class InputIt>
+		Vector(InputIt  first, InputIt last, const Allocator& alloc = Allocator())
+		{
+			for (InputIt it = first; it != last; it++)
+			{
+				
+			}
+		}
+		
+		vector(const vector& other)
+		{
+
+		}
+
+
 		
 	};
 }

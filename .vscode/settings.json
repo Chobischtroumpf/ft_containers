@@ -6,6 +6,16 @@
 		"__config": "cpp",
 		"array": "cpp",
 		"string": "cpp",
-		"string_view": "cpp"
+		"string_view": "cpp",
+		"__hash_table": "cpp",
+		"bitset": "cpp",
+		"memory_resource": "cpp",
+		"functional": "cpp",
+		"iosfwd": "cpp",
+		"locale": "cpp",
+		"sstream": "cpp",
+		"unordered_map": "cpp",
+		"__functional_03": "cpp",
+		"__split_buffer": "cpp"
 	}
 }

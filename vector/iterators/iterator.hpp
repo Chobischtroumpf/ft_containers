@@ -195,9 +195,9 @@ namespace ft
 
 		reference		operator[](difference_type n) const {return *(*this + n);}
 
-	}
+	};
 
-		template <class T1, class T2>
+	template <class T1, class T2>
 	bool operator==(const Iter<T1>& _it1, const Iter<T2>& _it2)
 	{
 		return _it1.base() == _it2.base();
@@ -238,10 +238,9 @@ namespace ft
 	{
 		return _it1.base() - _it2.base();
 	}
-	
-	
+
 	template <class T>
-	operator-(typename Iter<T>::difference_type _n, const Iter<T>& _x)
+	bool operator-(typename Iter<T>::difference_type _n, const Iter<T>& _x)
 	{
 		return reverse_iterator<T>(_x.base() - _n);
 	}
