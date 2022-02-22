@@ -167,7 +167,7 @@ namespace ft
 				this->_ptr = this->_base.allocate(0);
 			};
 
-			explicit		vector(size_type count, const T& value = T(), const allocator_type& alloc = allocator_type())
+			explicit		vector(size_type count, const T& value = T(), const allocator_type& alloc = allocator_type()): _base(alloc)
 			{
 				if (count != 0)
 				{
@@ -181,18 +181,21 @@ namespace ft
 			};
 
 			template<class InputIt>
-			vector(InputIt  first, InputIt last, const allocator_type& alloc = allocator_type())
+			vector(InputIt  first, InputIt last, const allocator_type& alloc = allocator_type()): __base(alloc)
 			{
-				for (InputIt it = first; it != last; it++)
-				{
-					this->
-				}
+				this->_start = this->_base.allocate(std::difference(first, last));
+				this->_end = this->_start;
+				this->_tot_storage = this->start + std::difference(first, last);
+				this->_end = this->_copy_init_range(first, last, this->_start)
 			}
 			
-			vector(const vector& other)
+			vector(const vector& other): _size(other.size()), _base(other.get_allocator())
 			{
-
+				this->finish = this->_copy_init_range(other.begin(), other.end(), this->_start);
 			}
+
+
+
 
 		protected:
 
@@ -214,11 +217,11 @@ namespace ft
 				}
 				else
 				{
-					std::fill_n(this->start, n, value);
+					std::fill_n(this->_start, n, value);
 					if (n > this->size())
 						this->_end += ( n - this->size());
 					else
-						this->_pop_back(this->start+n);
+						this->_pop_back(this->_start+n);
 				}
 			}
 			
@@ -272,7 +275,7 @@ namespace ft
 				this->finish  pos;
 			}
 
-			
+
 		};
 }
 
