@@ -19,10 +19,10 @@ namespace ft
 	
 	//Iter vector//
 	template <class T>
-	class Iter
+	class iterator
 	{
 		public:
-		    typedef Iter												iterator_type;
+		    typedef iterator												iterator_type;
 			typedef typename ft::iterator_traits<T*>::iterator_category	iterator_category;
 			typedef typename ft::iterator_traits<T*>::value_type		value_type;
 			typedef typename ft::iterator_traits<T*>::difference_type	difference_type;
@@ -32,8 +32,8 @@ namespace ft
 			pointer	current;
 		
 		//constructor//
-		Iter() : current(iterator()){}
-		explicit Iter(iterator_type _it) : current(_it){}
+		iterator() : current(iterator()){}
+		explicit iterator(iterator_type _it) : current(_it){}
 
 		//getter//
 		iterator_type	base() const {}
@@ -41,11 +41,11 @@ namespace ft
 		template <class U>
 		iterator_type& operator=(const iterator_type<U>& u) {current = u.base;return *this;}
 
-		Iter base() const {return current;}
+		iterator base() const {return current;}
 
 		reference		operator*(void) const 
 		{
-			Iterator _tmp = current;
+			iterator _tmp = current;
 			return *++_tmp;
 		}
 
@@ -110,55 +110,55 @@ namespace ft
 	};
 
 	template <class T1, class T2>
-	bool operator==(const Iter<T1>& _it1, const Iter<T2>& _it2)
+	bool operator==(const iterator<T1>& _it1, const iterator<T2>& _it2)
 	{
 		return _it1.base() == _it2.base();
 	}
 
 	template <class T1, class T2>
-	bool operator!=(const Iter<T1>& _it1, const Iter<T2>& _it2)
+	bool operator!=(const iterator<T1>& _it1, const iterator<T2>& _it2)
 	{
 		return _it1.base() != _it2.base();
 	}
 
 	template <class T1, class T2>
-	bool operator>(const Iter<T1>& _it1, const Iter<T2>& _it2)
+	bool operator>(const iterator<T1>& _it1, const iterator<T2>& _it2)
 	{
 		return _it1.base() > _it2.base();
 	}
 
 		template <class T1, class T2>
-	bool operator<(const Iter<T1>& _it1, const Iter<T2>& _it2)
+	bool operator<(const iterator<T1>& _it1, const iterator<T2>& _it2)
 	{
 		return _it1.base() < _it2.base();
 	}
 
 	template <class T1, class T2>
-	bool operator>=(const Iter<T1>& _it1, const Iter<T2>& _it2)
+	bool operator>=(const iterator<T1>& _it1, const iterator<T2>& _it2)
 	{
 		return _it1.base() >= _it2.base();
 	}
 
 	template <class T1, class T2>
-	bool operator<=(const Iter<T1>& _it1, const Iter<T2>& _it2)
+	bool operator<=(const iterator<T1>& _it1, const iterator<T2>& _it2)
 	{
 		return _it1.base() <= _it2.base();
 	}
 	
 	template <class T1, class T2>
-	bool operator-(const Iter<T1>& _it1, const Iter<T2>& _it2)
+	bool operator-(const iterator<T1>& _it1, const iterator<T2>& _it2)
 	{
 		return _it1.base() - _it2.base();
 	}
 
 	template <class T>
-	bool operator-(typename Iter<T>::difference_type _n, const Iter<T>& _x)
+	bool operator-(typename iterator<T>::difference_type _n, const iterator<T>& _x)
 	{
 		return reverse_iterator<T>(_x.base() - _n);
 	}
 
 	template <class T>
-	bool operator-(typename Iter<T>::difference_type _n, const Iter<T>& _x)
+	bool operator-(typename iterator<T>::difference_type _n, const iterator<T>& _x)
 	{
 		return reverse_iterator<T>(_x.base() + _n);
 	}

@@ -4,31 +4,10 @@
 
 #include <vector>
 #include <memory>
-#include "./iterators/ft_iterator.hpp"
+#include "ft_iterator.hpp"
+#include "ft_reverse_iterator.hpp"
 
 /*
-	vector synopsis
-
-namespace std
-{
-
-template <class T, class Allocator = allocator<T> >
-class vector
-{
-public:
-	typedef T                                        value_type;
-	typedef Allocator                                allocator_type;
-	typedef typename allocator_type::reference       reference;
-	typedef typename allocator_type::const_reference const_reference;
-	typedef implementation-defined                   iterator;
-	typedef implementation-defined                   const_iterator;
-	typedef typename allocator_type::size_type       size_type;
-	typedef typename allocator_type::difference_type difference_type;
-	typedef typename allocator_type::pointer         pointer;
-	typedef typename allocator_type::const_pointer   const_pointer;
-	typedef std::reverse_iterator<iterator>          reverse_iterator;
-	typedef std::reverse_iterator<const_iterator>    const_reverse_iterator;
-
 	vector()
 		noexcept(is_nothrow_default_constructible<allocator_type>::value);
 	explicit vector(const allocator_type&);
@@ -162,8 +141,8 @@ namespace ft
 			typedef Allocator allocator_type;
 			typedef typename allocator_type::reference reference;
 			typedef typename allocator_type::const_reference const_reference;
-			typedef ft::Iter<pointer, vector> iterator;
-			typedef ft::Iter<const_pointer, vector> const_iterator;
+			typedef ft::iterator<pointer, vector> iterator;
+			typedef ft::iterator<const_pointer, vector> const_iterator;
 			typedef ft::reverse_iterator<iterator> reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 			typedef typename allocator_type::pointer pointer;
@@ -173,30 +152,40 @@ namespace ft
 		
 		private:
 			T   			_vector;
-			pointer			_ptr;
+			pointer			_start;
+			pointer			_end;
+			pointer			_tot_storage;
 			allocator_type	_base;
 			size_type		_size;
-			size_type		_capacity;
+
 		public:
 
-			explicit		Vector(const allocator_type& alloc = allocator_type()) : _base(alloc), _ptr(NULL), size(0), _capacity(0)
+			explicit        vector(void) : base() {}
+
+			explicit		vector(const allocator_type& alloc) : _base(alloc), _ptr(NULL), size(0), _capacity(0)
 			{
 				this->_ptr = this->_base.allocate(0);
 			};
 
-			explicit		Vector(size_type count, const T& value = T(), const allocator_type& alloc = allocator_type())
+			explicit		vector(size_type count, const T& value = T(), const allocator_type& alloc = allocator_type())
 			{
-				this->_ptr = this->_base.allocate(count);
-				for (size_t i = 0; i < count; i++)
-					this->_base.construct(this->_ptr + i, value);
+				if (count != 0)
+				{
+					this->_start = this->_base.allocate(count);
+					this->_init_fill(this->_start, count, value);
+					this->_size = _size + count;
+				}
+				else
+					this->_start = this->_base.allocate(0);
+				
 			};
 
 			template<class InputIt>
-			Vector(InputIt  first, InputIt last, const allocator_type& alloc = allocator_type())
+			vector(InputIt  first, InputIt last, const allocator_type& alloc = allocator_type())
 			{
 				for (InputIt it = first; it != last; it++)
 				{
-					
+					this->
 				}
 			}
 			
@@ -205,6 +194,83 @@ namespace ft
 
 			}
 
+		protected:
+
+			void _init_fill(pointer first, size_type n, const value_type& val){
+				pointer current = first;
+				
+				for ( ; n > 0; --n, ++current){
+					this->_base.construct(current, val);
+				}
+				this->_end = this->_tot_storage;
+			}
+
+			void _assign_fill(size_type n, const value_type& val){
+				if (n > this->capacity())
+				{
+					vector		tmp(n, value, this->get_allocator());
+
+					tmp.swap(*this);
+				}
+				else
+				{
+					std::fill_n(this->start, n, value);
+					if (n > this->size())
+						this->_end += ( n - this->size());
+					else
+						this->_pop_back(this->start+n);
+				}
+			}
+			
+			template <typename InputIt>
+			void _assign_range( InputIt beginning, InputIt end)
+			{
+				const size_type		len = std::distance(beginning, end);
+
+				if (len > this->capacity())
+				{
+					pointer		tmp = this->base.allocate(len);
+
+					std::copy(beginning, end, tmp);
+					this->_base.deallocate(this->_start, this->capacity());
+					this->_start = tmp;
+					this->finish = this->_start + len;
+					this->_tot_storage = this->_start + len;
+				}
+				else if (len <= this->size())
+					this->_pop_back(std::copy(beginning, end, this->_start));
+				else
+				{
+					InputIt		mid = beginning;
+					std::advance(mid, this->size());
+					std::copy(beginning, mid, this->_start);
+					this->_end = std::copy(mid, end, this->finish);
+				}
+			}
+
+			template <typename InputIt>
+			pointer copy_init_assign(InputIt beginning, InputIt end, pointer res)
+			{
+				pointer		current = res;
+				for ( ; beginning != end; ++beginning, ++current)
+					this->base.construct(current, *beginning);
+				return (current);
+			}
+
+			template <typename InputIt>
+			void _destroy_range( InputIt beginning, InputIt end)
+			{
+				pointer current = beginning;
+
+				for ( ; current != last; ++current)
+					this->allocator.destroy(current);
+			}
+
+			void _pop_back(pointer pos)
+			{
+				this->_destroy_range(pos, this->finish);
+				this->finish  pos;
+			}
 
 			
 		};
