@@ -1,6 +1,11 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP 1
 
+
+#include <vector>
+#include <memory>
+#include "./iterators/ft_iterator.hpp"
+
 /*
 	vector synopsis
 
@@ -104,10 +109,6 @@ public:
 	bool __invariants() const;
 };
 */
-
-#include <vector>
-#include <memory>
-#include "iterators/iterator.hpp"
 
 namespace ft
 {
