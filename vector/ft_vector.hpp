@@ -218,9 +218,14 @@ namespace ft
 			void _insert_aux(iterator pos, const value_type& value)
 			{
 				if (this->_end != this->_tot_storage)
-					this->_insert_at_end(value);
+				{
+					this->allocator.construct(this->_end, *(this->_end - 1));
+					++this->_end;
+					std::copy_backward(pos.base(), this->_end - 2, this->_end - 1);
+					*pos = value;
+				}
 				else
-					this->_resize_insert(this->end(), 1, value);
+					this->_resize_insert(pos, 1, value);
 			}
 
 		public:
@@ -424,32 +429,32 @@ namespace ft
 
 			void push_back(const value_type& x)
 			{
-				this->_insert_aux(this->end(), value)
+				this->_insert_aux(this->end(), x);
 			}
 
 			iterator insert(iterator position, const value_type& val)
 			{
 				const size_type	n = position - this->begin();
 
-				if (this->_end != != this->_tot_storage && position== this->end())
-					this->_insert_at_end(val)
+				if (this->_end != this->_tot_storage && position== this->end())
+					this->_insert_at_end(val);
 				else
-					this->_insert_aux(position, value);
+					this->_insert_aux(position, val);
 				return iterator(this->_start+n);
 			}
 
 			void insert( iterator pos, size_type count, const size_type& value )
 			{
-				if (n != 0 )
+				if (count != 0 )
 				{
-					if(this>capacity() - this->size() >= n)
+					if(this>capacity() - this->size() >= count)
 					{
-						std::copy_backward(pos, this->end(), this->_end + difference_type(n));
-						std::fill(position.base(), position.base() + n, value);
-						this->finish += n;
+						std::copy_backward(pos, this->end(), this->_end + difference_type(count));
+						std::fill(pos.base(), pos.base() + count, value);
+						this->finish += count;
 					}
 					else
-						this->_resize_insert(pos, n, value);
+						this->_resize_insert(pos, count, value);
 				}
 			}
 
@@ -465,11 +470,56 @@ namespace ft
 
 			iterator	erase( iterator position)
 			{
-				if position != this->end())
+				if (position != this->end())
 				{
 					if (position + 1 != this->end())
+						std::copy(position.base() + 1, this->_end, position.base());
+					--this->_end;
+					this->allocator.destroy(this->_end);
+				}
+				return(position);
+			}
+
+			iterator	erase(iterator beginning, iterator end)
+			{
+				if (beginning != end)
+				{
+					if (end != this->end())
+						std::copy(end.base(), this->_end, beginning.base());
+					this->_pop_back(beginning.base() + (this->_end - end.base()));
+				}
+				return beginning;
+			}
+
+			void swap(vector& other)
+			{
+				std::swap(this->_start, other._start);
+				std::swap(this->_end, other._end);
+				std::swap(this->_tot_storage, other._tot_storage);
+				std::swap(this->allocator, other.allocator);
+			}
+
+			void clear()
+			{
+				this->_pop_back(this->_start);
+			}
+
+			void resize(size_type n)
+			{
+				if (n > this->capacity())
+				{
+					const size_type		old_size = this->size();
+					pointer				tmp = this->allocate(n);
+
+					std::copy(this->_start, this->_end, tmp);
+					this->deallocate(this->start, this->capacity());
+					this->_start = tmp;
+					this->_end = this->_start + old_size;
+					this->_tot_storage = this->_start + n;
 				}
 			}
+
+
 		};
 };
 
