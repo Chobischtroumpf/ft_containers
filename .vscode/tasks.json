@@ -1,0 +1,12 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "C/C++: clang++ build active file",
+			"type": "shell",
+			"command": "clang++ test_vector.cpp -Ivector/ -Iiterators/ -Ishared/ -std=c++98 -g3"
+		}
+	]
+}
