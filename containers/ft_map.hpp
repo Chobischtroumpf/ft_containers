@@ -283,44 +283,44 @@ namespace ft{
 		};
 
 	template<class key,class value, class comparator, class allocator>
-		bool operator==(const ft::map<key,value, comparator, allocator>& lhs,
-						const ft::map<key,value, comparator, allocator>& rhs){
+		bool operator==(const map<key,value, comparator, allocator>& lhs,
+						const map<key,value, comparator, allocator>& rhs){
 			return(lhs._tree == rhs._tree);
 		}
 
 	template<class key,class value, class comparator, class allocator>
-		bool operator!=(const ft::map<key,value, comparator, allocator>& lhs,
-						const ft::map<key,value, comparator, allocator>& rhs){
+		bool operator!=(const map<key,value, comparator, allocator>& lhs,
+						const map<key,value, comparator, allocator>& rhs){
 			return(lhs._tree != rhs._tree);
 		}
 
 	template<class key,class value, class comparator, class allocator>
-		bool operator<(const ft::map<key,value, comparator, allocator>& lhs,
-						const ft::map<key,value, comparator, allocator>& rhs){
+		bool operator<(const map<key,value, comparator, allocator>& lhs,
+						const map<key,value, comparator, allocator>& rhs){
 			return(lhs._tree < rhs._tree);
 		}
 
 	template<class key,class value, class comparator, class allocator>
-		bool operator<=(const ft::map<key,value, comparator, allocator>& lhs,
-						const ft::map<key,value, comparator, allocator>& rhs){
+		bool operator<=(const map<key,value, comparator, allocator>& lhs,
+						const map<key,value, comparator, allocator>& rhs){
 			return(lhs._tree <= rhs._tree);
 		}
 
 	template<class key,class value, class comparator, class allocator>
-		bool operator>(const ft::map<key,value, comparator, allocator>& lhs,
-						const ft::map<key,value, comparator, allocator>& rhs){
+		bool operator>(const map<key,value, comparator, allocator>& lhs,
+						const map<key,value, comparator, allocator>& rhs){
 			return(lhs._tree > rhs._tree);
 		}
 
 	template<class key,class value, class comparator, class allocator>
-		bool operator>=(const ft::map<key,value, comparator, allocator>& lhs,
-						const ft::map<key,value, comparator, allocator>& rhs){
+		bool operator>=(const map<key,value, comparator, allocator>& lhs,
+						const map<key,value, comparator, allocator>& rhs){
 			return(lhs._tree >= rhs._tree);
 		}
 
 	template<class key,class value, class comparator, class allocator>
-		void		swap(const ft::map<key,value, comparator, allocator>& lhs,
-						const ft::map<key,value, comparator, allocator>& rhs){
+		void		swap(const map<key,value, comparator, allocator>& lhs,
+						const map<key,value, comparator, allocator>& rhs){
 			lhs.swap(rhs);
 		}
 }
