@@ -34,7 +34,7 @@ void 	print_title(std::string str)
 
 void print_error()
 {
-	std::cout << BOLD << RED << "Unkown command." << RESET << std::endl;
+	std::cout << BOLD << ROUGE << "Unkown command." << RESET << std::endl;
 	std::cout << "Pass the name of the test in argument."  << std::endl;
 	std::cout << "List of valid args : "  << std::endl;
 	std::cout << "- stack"  << std::endl;
@@ -83,40 +83,40 @@ bool pred(int &val)
 	return (true);
 }
 
-// int main(int argc, char **argv)
-// {
-// 	std::string test;
-// 	size_t		i = 0;
+int main(int argc, char **argv)
+{
+	std::string test;
+	size_t		i = 0;
 
-// 	if (argc < 2)
-// 	{
-// 		print_error();
-// 		return (1);
-// 	}
+	if (argc < 2)
+	{
+		print_error();
+		return (1);
+	}
 
-// 	test = argv[1];
-// 	while (i < test.size())
-// 	{
-// 		test[i] = tolower(test[i]);
-// 		++i;
-// 	}
+	test = argv[1];
+	while (i < test.size())
+	{
+		test[i] = tolower(test[i]);
+		++i;
+	}
 
-// 	if (test == "all")
-// 	{
-// 		test_stack();
-// 		test_vector();
-// 		test_map();
-// 	}
-// 	else if (test == "stack")
-// 		test_stack();
-// 	else if (test == "vector")
-// 		test_vector();
-// 	else if (test == "map")
-// 		test_map();
-// 	else
-// 	{
-// 		print_error();
-// 		return (1);
-// 	}
-// 	return (0);
-// }
+	if (test == "all")
+	{
+		test_stack();
+		test_vector();
+		test_map();
+	}
+	else if (test == "stack")
+		test_stack();
+	else if (test == "vector")
+		test_vector();
+	else if (test == "map")
+		test_map();
+	else
+	{
+		print_error();
+		return (1);
+	}
+	return (0);
+}

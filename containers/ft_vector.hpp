@@ -8,10 +8,7 @@
 # include <iterator>
 # include "ft_iterator.hpp"
 # include "ft_reverse_iterator.hpp"
-# include "lexicographical_compare.hpp"
-# include "is_equal.hpp"
-# include "is_integral.hpp"
-# include "enable_if.hpp"
+# include "ft_utils.hpp"
 
 namespace	ft
 {

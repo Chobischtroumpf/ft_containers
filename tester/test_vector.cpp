@@ -519,7 +519,7 @@ void	test_vct_op()
 	check("Operator >", (my1 > my2), (real1 > real2));
 }
 
-int		main()
+void	test_vector()
 {
 	print_header("VECTOR");
 	test_vct_construct();

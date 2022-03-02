@@ -33,9 +33,10 @@
 // # include "../srcs/Utils/Utils.hpp"
 // # include "../srcs/Vector/Vector.hpp"
 # include "ft_vector.hpp"
+# include "ft_map.hpp"
 
 # define RESET "\e[0m"
-# define RED "\e[91m"
+# define ROUGE "\e[91m"
 # define GREEN "\e[92m"
 # define BLUE "\e[94m"
 # define BOLD "\e[1m"
@@ -81,7 +82,7 @@ inline void check(std::string name, T a, T b)
 	if (a ==  b)
 		std::cout << name << ": " << margin << BOLD << GREEN << GOOD << RESET << std::endl;
 	else
-		std::cout << name << ": " << margin << BOLD << RED << FAIL << RESET << std::endl;
+		std::cout << name << ": " << margin << BOLD << ROUGE << FAIL << RESET << std::endl;
 };
 
 inline void check(std::string name, bool good)
@@ -90,7 +91,7 @@ inline void check(std::string name, bool good)
 	if (good)
 		std::cout << name << ": " << margin << BOLD << GREEN << GOOD << RESET << std::endl;
 	else
-		std::cout << name << ": " << margin << BOLD << RED << FAIL << RESET << std::endl;
+		std::cout << name << ": " << margin << BOLD << ROUGE << FAIL << RESET << std::endl;
 };
 
 template <typename T>
