@@ -23,6 +23,7 @@
 # include <queue>
 # include <map>
 # include <utility>
+# include <stdlib.h>
 
 // # include "../srcs/Map/Map.hpp"
 // # include "../srcs/Map/MapIterator.hpp"
