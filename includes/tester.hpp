@@ -49,7 +49,6 @@
 # define PL(name, x) std::cout << name << x << std::endl;
 
 void	test_list();
-void	test_stack();
 void	test_vector();
 void	test_queue();
 void	test_map();
@@ -126,33 +125,33 @@ bool operator==(ft::vector<T> &a, std::vector<T> &b)
 // 	return (true);
 // };
 
-// template <typename T, typename S>
-// bool operator==(ft::map<T, S> &a, std::map<T, S> &b)
-// {
-// 	if (a.size() != b.size())
-// 		return (false);
-// 	if (a.empty() != b.empty())
-// 		return (false);
-// 	typename ft::map<T, S>::iterator it = a.begin();
-// 	typename std::map<T, S>::iterator it2 = b.begin();
-// 	while (it != a.end())
-// 	{
-// 		if (it->first != it2->first || it->second != it2->second)
-// 			return (false);
-// 		++it;
-// 		++it2;
-// 	}
-// 	return (true);
-// };
+template <typename T, typename S>
+bool operator==(ft::map<T, S> &a, std::map<T, S> &b)
+{
+	if (a.size() != b.size())
+		return (false);
+	if (a.empty() != b.empty())
+		return (false);
+	typename ft::map<T, S>::iterator it = a.begin();
+	typename std::map<T, S>::iterator it2 = b.begin();
+	while (it != a.end())
+	{
+		if (it->first != it2->first || it->second != it2->second)
+			return (false);
+		++it;
+		++it2;
+	}
+	return (true);
+};
 
-// template <class T, class S>
-// bool operator==(ft::pair<T, S> &a, std::pair<T, S> &b)
-// {
-// 	if (a.first != b.first)
-// 		return (false);
-// 	if (a.second != b.second)
-// 		return (false);
-// 	return (true);
-// };
+template <class T, class S>
+bool operator==(ft::pair<T, S> &a, std::pair<T, S> &b)
+{
+	if (a.first != b.first)
+		return (false);
+	if (a.second != b.second)
+		return (false);
+	return (true);
+};
 
 #endif

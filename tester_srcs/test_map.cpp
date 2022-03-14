@@ -428,6 +428,39 @@ void	test_map_operations()
 	print_vraie_map_values(real1, "int");
 }
 
+void	stress_test_map()
+{
+	ft::map<int, int> myMap;
+	std::map<int, int> realMap;
+	struct timeval beg_time;
+	struct timeval end_time;
+	
+	gettimeofday(&beg_time, NULL);
+	for (int i = 0; i < 100000; i++)
+	{
+		myMap[i] = i+1;
+	}
+	for (int i = 0; i < 100000; i++)
+	{
+		std::cerr << myMap[i];
+	}
+	gettimeofday(&end_time, NULL);
+	std::cout << std::endl << "time myMap took : "<< ((end_time.tv_sec - beg_time.tv_sec)*1000000L + end_time.tv_usec) - beg_time.tv_usec << std::endl;
+	
+	gettimeofday(&beg_time, NULL);
+	for (int i = 0; i < 100000; i++)
+	{
+		realMap[i] = i+1;
+	}
+	for (int i = 0; i < 100000; i++)
+	{
+		std::cerr << realMap[i];
+	}
+	gettimeofday(&end_time, NULL);
+	std::cout << std::endl << "time realMap took : "<< ((end_time.tv_sec - beg_time.tv_sec)*1000000L + end_time.tv_usec) - beg_time.tv_usec << std::endl;
+	
+}
+
 void	test_map()
 {
 	print_header("MAP");
@@ -460,4 +493,6 @@ void	test_map()
 
     gettimeofday(&todms, NULL);
     std::cout << "Global start end : " << todms.tv_usec << std::endl;
+
+	stress_test_map();
 }

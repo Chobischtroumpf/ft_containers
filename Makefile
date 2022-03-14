@@ -1,18 +1,46 @@
-NAME		=	 ft_containers
+NAME			=	ft_containers
 
-ITERATOR_DIR	= \
-		iterators/ft_iterator_traits.hpp \
-		iterators/ft_iterator.hpp \
-		iterators/ft_reverse_iterator.hpp \
+SRCSDIR			=	tester_srcs/
+OBJSDIR			=	objs/
 
-CONTAINERS_DIR	= \
-		vector/vector.hpp
+CC				=	clang++
+CFLAGS			=	-Wall -Wextra -Werror -std=c++98
 
+INCLUDES		=	includes/
 
-COMMON_DIR		= \
-		shared/ft_equal.hpp
+SRCS			=	main.cpp	test_vector.cpp	test_map.cpp
+OBJS			=	$(patsubst %.cpp,%.o,$(SRCS))
 
-INC				= -I$(CONTAINERS_DIR) -T$(ITERATOR_DIR) #-I$(COMMON_DIR)
+OBJS			:=	$(addprefix $(OBJSDIR), $(OBJS))
+SRCS			:=	$(addprefix $(SRCSDIR), $(SRCS))
+DEPS			=	$(OBJS:%.o=%.d)
 
-OBJ_DIR			= obj/
-OBJ				= $(patsubst $$(OBJ_DIR), )
+all:				$(NAME)
+
+$(NAME):			$(OBJS)
+					$(CC) -o $(NAME) $? -I$(INCLUDES)
+
+-include $(DEPS)
+$(OBJSDIR)%.o:		$(SRCSDIR)%.cpp Makefile
+					@ mkdir -p $(OBJSDIR)
+					$(CC) $(CFLAGS) -MMD -c $< -o $@ -I$(INCLUDES)
+
+leaks:
+					$(CC) $(CFLAGS) -fsanitize=address $(SRCS) -o $(NAME)_leaks $(INCLUDES_FLAGS) -I$(INCLUDES)
+
+releaks:			fclean leaks
+
+info:
+					echo $(DEPS)
+					echo $(SRCS)
+					echo $(OBJS)
+
+clean:
+					rm -rf $(OBJSDIR)
+
+fclean:				clean
+					rm -f $(NAME) $(NAME)_leaks
+
+re:					fclean all
+
+.PHONY:				all clean fclean re test

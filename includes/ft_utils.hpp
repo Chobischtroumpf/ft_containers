@@ -1,6 +1,9 @@
 #ifndef	FT_UTILS_HPP
 #define FT_UTILS_HPP
 
+#include "ft_iterator_traits.hpp"
+#include "ft_reverse_iterator.hpp"
+
 namespace ft
 {
 
