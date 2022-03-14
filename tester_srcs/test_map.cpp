@@ -440,10 +440,12 @@ void	stress_test_map()
 	{
 		myMap[i] = i+1;
 	}
+	std::cerr << std::endl;
 	for (int i = 0; i < 100000; i++)
 	{
 		std::cerr << myMap[i];
 	}
+	std::cerr << std::endl;
 	gettimeofday(&end_time, NULL);
 	std::cout << std::endl << "time myMap took : "<< ((end_time.tv_sec - beg_time.tv_sec)*1000000L + end_time.tv_usec) - beg_time.tv_usec << std::endl;
 	

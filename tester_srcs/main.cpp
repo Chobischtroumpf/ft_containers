@@ -37,7 +37,6 @@ void print_error()
 	std::cout << BOLD << ROUGE << "Unkown command." << RESET << std::endl;
 	std::cout << "Pass the name of the test in argument."  << std::endl;
 	std::cout << "List of valid args : "  << std::endl;
-	std::cout << "- stack"  << std::endl;
 	std::cout << "- vector"  << std::endl;
 	std::cout << "- map"  << std::endl;
 	std::cout << "- all"  << std::endl;
@@ -86,21 +85,11 @@ bool pred(int &val)
 int main(int argc, char **argv)
 {
 	std::string test;
-	size_t		i = 0;
 
 	if (argc < 2)
-	{
-		print_error();
-		return (1);
-	}
-
-	test = argv[1];
-	while (i < test.size())
-	{
-		test[i] = tolower(test[i]);
-		++i;
-	}
-
+		test="all";
+	else
+		test = argv[1];
 	if (test == "all")
 	{
 		test_vector();
@@ -115,5 +104,6 @@ int main(int argc, char **argv)
 		print_error();
 		return (1);
 	}
-	return (0);
+	while(1)
+	{}
 }
